@@ -17,14 +17,18 @@ class ProjectCompassion(models.Model):
 
     def _hold_letters(self):
         letters = self.env['correspondence'].search([
-            ('child_id.code', 'like', self.icp_id),
-            ('direction', '=', 'Supporter to Beneficiary'),
-            ('kit_identifier', '=', False)])
+            ('child_id.local_id', 'like', self.icp_id),
+            ('direction', '=', 'Supporter To Beneficiary'),
+            ('kit_identifier', '=', False),
+            ('state', '=', 'Received in the system'),
+        ])
         letters.hold_letters()
 
     def _reactivate_letters(self):
         letters = self.env['correspondence'].search([
-            ('child_id.code', 'like', self.icp_id),
-            ('direction', '=', 'Supporter to Beneficiary'),
-            ('kit_identifier', '=', False)])
+            ('child_id.local_id', 'like', self.icp_id),
+            ('direction', '=', 'Supporter To Beneficiary'),
+            ('kit_identifier', '=', False),
+            ('state', '=', 'Received in the system'),
+        ])
         letters.reactivate_letters()
